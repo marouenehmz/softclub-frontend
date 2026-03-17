@@ -1,0 +1,592 @@
+.vip-reservation-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem 0 3rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--soft-bg) 0%, var(--soft-surface) 100%);
+  color: var(--soft-text);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.glow-bg {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(227, 83, 54, 0.2), transparent 22%),
+    radial-gradient(circle at 78% 28%, rgba(227, 83, 54, 0.12), transparent 20%),
+    radial-gradient(circle at 50% 72%, rgba(227, 83, 54, 0.1), transparent 24%);
+  filter: blur(34px);
+  animation: softGlowMove 12s ease-in-out infinite alternate;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+}
+
+@keyframes softGlowMove {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(2%, 1%, 0) scale(1.05);
+  }
+
+  100% {
+    transform: translate3d(-1%, 2%, 0) scale(1.02);
+  }
+}
+
+.soft-container {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.page-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.5rem;
+}
+
+.section-tag {
+  margin: 0 0 0.45rem;
+  color: var(--soft-primary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.section-subtitle {
+  margin-top: 0.75rem;
+  color: var(--soft-text-muted);
+  max-width: 720px;
+  line-height: 1.65;
+  font-size: 1.02rem;
+}
+
+.calendar-card {
+  position: relative;
+  z-index: 2;
+  padding: 1rem;
+  border-radius: 24px;
+  border: 1px solid var(--soft-border);
+  background: rgba(18, 18, 18, 0.88);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.38),
+    0 0 40px rgba(227, 83, 54, 0.08);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.calendar-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 24px;
+  background: radial-gradient(circle at center, rgba(227, 83, 54, 0.14), transparent 70%);
+  filter: blur(18px);
+  z-index: -1;
+}
+
+/* ===== FullCalendar ===== */
+
+:host ::ng-deep .fc {
+  color: var(--soft-text);
+  background: transparent;
+}
+
+:host ::ng-deep .fc-theme-standard .fc-scrollgrid,
+:host ::ng-deep .fc-theme-standard td,
+:host ::ng-deep .fc-theme-standard th {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+:host ::ng-deep .fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1.2rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+:host ::ng-deep .fc .fc-toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--soft-text);
+}
+
+:host ::ng-deep .fc .fc-button {
+  background: rgba(227, 83, 54, 0.08) !important;
+  border: 1px solid rgba(227, 83, 54, 0.24) !important;
+  color: var(--soft-text) !important;
+  text-transform: capitalize;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+  padding: 0.55rem 0.95rem !important;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+:host ::ng-deep .fc .fc-button:hover {
+  background: rgba(227, 83, 54, 0.16) !important;
+  border-color: rgba(227, 83, 54, 0.5) !important;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active,
+:host ::ng-deep .fc .fc-button-primary:not(:disabled):active,
+:host ::ng-deep .fc .fc-button.fc-today-button {
+  background: linear-gradient(
+    135deg,
+    var(--soft-primary) 0%,
+    var(--soft-primary-light) 100%
+  ) !important;
+  border-color: var(--soft-primary) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 12px rgba(227, 83, 54, 0.28),
+    0 0 24px rgba(227, 83, 54, 0.12) !important;
+}
+
+:host ::ng-deep .fc-theme-standard th,
+:host ::ng-deep .fc .fc-col-header-cell {
+  background: #111111 !important;
+}
+
+:host ::ng-deep .fc .fc-col-header {
+  background: transparent;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+:host ::ng-deep .fc .fc-col-header-cell-cushion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  color: #f5f5f5 !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell.fc-day-today {
+  background: #111111 !important;
+  box-shadow: inset 0 -2px 0 rgba(227, 83, 54, 0.75);
+}
+
+:host ::ng-deep .fc .fc-col-header-cell.fc-day-today .fc-col-header-cell-cushion {
+  background: linear-gradient(135deg, rgba(227, 83, 54, 0.22), rgba(227, 83, 54, 0.14));
+  color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(227, 83, 54, 0.12);
+}
+
+:host ::ng-deep .fc .fc-timegrid-axis,
+:host ::ng-deep .fc .fc-timegrid-slot-label-cushion {
+  color: #9e9e9e;
+}
+
+:host ::ng-deep .fc .fc-timegrid-slot {
+  height: 3rem;
+}
+
+:host ::ng-deep .fc .fc-timegrid-slot-minor {
+  border-top-style: dotted;
+}
+
+:host ::ng-deep .fc .fc-timegrid-now-indicator-line {
+  border-color: var(--soft-primary);
+  border-width: 2px;
+  animation: pulseLine 1.5s infinite;
+}
+
+:host ::ng-deep .fc .fc-highlight {
+  background: rgba(227, 83, 54, 0.16);
+}
+
+:host ::ng-deep .fc .fc-event {
+  background: linear-gradient(135deg, var(--soft-primary) 0%, var(--soft-primary-light) 100%);
+  border: none;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 0.22rem 0.45rem;
+  font-weight: 700;
+  box-shadow:
+    0 0 10px rgba(227, 83, 54, 0.24),
+    0 0 20px rgba(227, 83, 54, 0.1);
+}
+
+:host ::ng-deep .fc .fc-event:hover {
+  box-shadow:
+    0 0 14px rgba(227, 83, 54, 0.34),
+    0 0 26px rgba(227, 83, 54, 0.14);
+}
+
+:host ::ng-deep .fc .fc-event-main {
+  padding: 0.15rem 0.25rem;
+}
+
+:host ::ng-deep .fc .fc-day-today {
+  background: rgba(227, 83, 54, 0.06) !important;
+}
+
+:host ::ng-deep .fc .fc-timegrid-slot:hover {
+  background: rgba(227, 83, 54, 0.05);
+  cursor: pointer;
+}
+
+@keyframes pulseLine {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* ===== Modal ===== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reservation-modal {
+  width: 100%;
+  max-width: 720px;
+  max-height: calc(100vh - 2rem);
+  background: rgba(20, 20, 20, 0.94);
+  border: 1px solid var(--soft-border);
+  border-radius: 24px;
+  color: var(--soft-text);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 36px rgba(227, 83, 54, 0.08);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: modalIn 0.25s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.modal-header p {
+  margin: 0.35rem 0 0;
+  color: var(--soft-text-muted);
+}
+
+.close-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(227, 83, 54, 0.18);
+  border-radius: 12px;
+  background: rgba(227, 83, 54, 0.08);
+  color: var(--soft-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(227, 83, 54, 0.14);
+  border-color: rgba(227, 83, 54, 0.34);
+  transform: translateY(-1px);
+}
+
+form {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+label {
+  margin-bottom: 0.45rem;
+  color: var(--soft-text);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--soft-border-light);
+  background: rgba(10, 10, 10, 0.9);
+  color: var(--soft-text);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--soft-primary);
+  box-shadow: 0 0 0 3px rgba(227, 83, 54, 0.12);
+  background: rgba(14, 14, 14, 0.96);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+small {
+  margin-top: 0.4rem;
+  color: var(--soft-primary-light);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.right-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.soft-btn-outline,
+.soft-btn-gold,
+.soft-btn-danger {
+  border: none;
+  border-radius: 14px;
+  padding: 0.85rem 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.soft-btn-outline {
+  background: transparent;
+  color: var(--soft-text);
+  border: 1px solid var(--soft-border-light);
+}
+
+.soft-btn-outline:hover {
+  border-color: var(--soft-primary);
+  color: var(--soft-primary-light);
+  transform: translateY(-1px);
+}
+
+.soft-btn-gold {
+  background: linear-gradient(135deg, var(--soft-primary) 0%, var(--soft-primary-light) 100%);
+  color: #ffffff;
+  box-shadow:
+    0 0 10px rgba(227, 83, 54, 0.18),
+    0 0 18px rgba(227, 83, 54, 0.08);
+}
+
+.soft-btn-gold:hover {
+  transform: translateY(-1px);
+}
+
+.soft-btn-danger {
+  background: rgba(227, 83, 54, 0.12);
+  color: var(--soft-primary-light);
+  border: 1px solid rgba(227, 83, 54, 0.22);
+}
+
+.soft-btn-danger:hover {
+  background: rgba(227, 83, 54, 0.18);
+}
+
+@keyframes modalIn {
+  from {
+    transform: translateY(10px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+  .vip-reservation-page {
+    padding: 1.35rem 0 2rem;
+  }
+
+  .soft-container {
+    width: min(100%, calc(100% - 1rem));
+  }
+
+  .page-header {
+    margin-bottom: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.96rem;
+  }
+
+  .calendar-card {
+    padding: 0.75rem;
+    border-radius: 20px;
+  }
+
+  :host ::ng-deep .fc .fc-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  :host ::ng-deep .fc .fc-toolbar-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  :host ::ng-deep .fc .fc-button-group,
+  :host ::ng-deep .fc .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  :host ::ng-deep .fc .fc-button {
+    width: auto;
+    min-width: 110px;
+  }
+
+  :host ::ng-deep .fc .fc-timegrid-slot {
+    height: 3.5rem;
+  }
+
+  :host ::ng-deep .fc .fc-event {
+    font-size: 0.8rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions {
+    position: sticky;
+    bottom: 0;
+    background: rgba(20, 20, 20, 0.94);
+    padding-top: 0.75rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .right-actions {
+    width: 100%;
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  .right-actions button,
+  .soft-btn-danger {
+    width: 100%;
+  }
+
+  .modal-backdrop {
+    align-items: flex-start;
+    padding: 0.75rem;
+  }
+
+  .reservation-modal {
+    max-height: calc(100vh - 1.5rem);
+    border-radius: 18px;
+    margin-top: 0.5rem;
+  }
+
+  .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(20, 20, 20, 0.94);
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  form {
+    padding: 0.9rem 1rem 1rem;
+  }
+}

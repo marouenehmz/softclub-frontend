@@ -1,0 +1,97 @@
+<section class="home-page">
+  <div class="glow-bg"></div>
+
+  <div class="soft-container content">
+    <div class="left">
+      <p class="tagline">Gaming Lounge • Billard • VIP • PS5</p>
+
+      <h1 class="brand-title">SOFT CLUB</h1>
+
+      <h2 class="headline">Le club premium pour jouer, réserver et vivre l'ambiance Soft.</h2>
+
+      <p class="description">
+        Réservation VIP, coin PS5, billard et expérience lounge moderne dans un univers rouge, noir
+        et industriel.
+      </p>
+
+      <div class="actions">
+        <a routerLink="/vip" class="soft-btn">Réserver un espace</a>
+        <a routerLink="/menu" class="soft-btn-outline">Voir le menu</a>
+      </div>
+    </div>
+
+    <div class="right">
+      <article
+        #billardCard
+        class="feature-card ps-square"
+        tabindex="0"
+        (mousemove)="onCardMove($event, billardCard)"
+        (mouseleave)="resetCardLetters(billardCard)"
+      >
+        <div class="ps-shape">□</div>
+        <div class="feature-content">
+          <h3 class="split-title">
+            @for (letter of billardLetters; track $index) {
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+            }
+          </h3>
+          <p>Tables premium et ambiance moderne.</p>
+        </div>
+      </article>
+
+      <article
+        #vipCard
+        class="feature-card ps-circle"
+        tabindex="0"
+        (mousemove)="onCardMove($event, vipCard)"
+        (mouseleave)="resetCardLetters(vipCard)"
+      >
+        <div class="ps-shape">○</div>
+        <div class="feature-content">
+          <h3 class="split-title">
+            @for (letter of vipLetters; track $index) {
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+            }
+          </h3>
+          <p>Réservations privées à l'étage.</p>
+        </div>
+      </article>
+
+      <article
+        #ps5Card
+        class="feature-card ps-triangle"
+        tabindex="0"
+        (mousemove)="onCardMove($event, ps5Card)"
+        (mouseleave)="resetCardLetters(ps5Card)"
+      >
+        <div class="ps-shape">△</div>
+        <div class="feature-content">
+          <h3 class="split-title">
+            @for (letter of ps5Letters; track $index) {
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+            }
+          </h3>
+          <p>Espace gaming dédié.</p>
+        </div>
+      </article>
+
+      <article
+        #premiumCard
+        class="feature-card ps-cross"
+        tabindex="0"
+        (mousemove)="onCardMove($event, premiumCard)"
+        (mouseleave)="resetCardLetters(premiumCard)"
+      >
+        <div class="ps-shape">✕</div>
+        <div class="feature-content">
+          <h3 class="split-title">
+            @for (letter of premiumLetters; track $index) {
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+            }
+          </h3>
+          <p>Un espace lounge pensé pour le confort et le jeu.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

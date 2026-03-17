@@ -4,20 +4,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-navbar',
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
-  template: `
-    <header class="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur">
-      <div class="soft-container flex h-20 items-center justify-between">
-        <a routerLink="/" class="text-2xl font-black uppercase tracking-wide">Soft Club</a>
-        <nav class="hidden gap-6 md:flex text-sm text-white/80">
-          <a routerLink="/" routerLinkActive="text-white">Accueil</a>
-          <a routerLink="/menu" routerLinkActive="text-white">Menu</a>
-          <a routerLink="/events" routerLinkActive="text-white">Événements</a>
-          <a routerLink="/vip" routerLinkActive="text-white">VIP</a>
-          <a routerLink="/contact" routerLinkActive="text-white">Contact</a>
-        </nav>
-        <a routerLink="/login" class="soft-btn">Connexion</a>
-      </div>
-    </header>
-  `,
+  templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {}
