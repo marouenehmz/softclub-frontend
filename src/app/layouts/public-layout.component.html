@@ -1,17 +1,32 @@
-   <div class="layout">
-      <div class="layout-glow"></div>
+<div class="layout">
+  <div class="layout-glow"></div>
 
-      <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-      <main class="content">
-        <router-outlet></router-outlet>
-      </main>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 
-      <footer class="footer">
-        <div class="footer-container">
-          <div class="footer-logo">SOFT CLUB</div>
-          <div class="footer-links">Gaming Lounge • Billard • PS5 • VIP</div>
-          <div class="footer-copy">© {{ year }} Soft Club</div>
-        </div>
-      </footer>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">SOFT CLUB</div>
+
+      <div class="footer-links">Gaming Lounge • Billard • PS5 • VIP</div>
+
+      <!-- Réseaux -->
+      <div class="footer-socials">
+        <a href="https://wa.me/213XXXXXXXXX" target="_blank" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/soft_coffeclub/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://facebook.com/softclub" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </div>
+
+      <div class="footer-copy">© {{ year }} Soft Club</div>
     </div>
+  </footer>
+</div>

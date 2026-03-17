@@ -471,7 +471,12 @@ small {
 .soft-btn-danger:hover {
   background: rgba(227, 83, 54, 0.18);
 }
-
+.popup,
+.modal,
+.reservation-popup {
+  position: fixed;
+  z-index: 9999;
+}
 @keyframes modalIn {
   from {
     transform: translateY(10px) scale(0.98);
@@ -588,5 +593,11 @@ small {
 
   form {
     padding: 0.9rem 1rem 1rem;
+  }
+  .popup-actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--soft-bg);
+    padding: 12px;
   }
 }
