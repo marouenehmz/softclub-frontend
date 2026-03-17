@@ -2,24 +2,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-staff-dashboard',
   standalone: true,
-  template: `
-    <section>
-      <h1 class="mb-6 text-3xl font-bold">Dashboard Staff</h1>
-      <div class="grid gap-4 md:grid-cols-3">
-        <div class="soft-panel p-5">
-          <h2 class="mb-2 text-lg font-bold">Créer une réservation</h2>
-          <p class="text-sm text-white/70">Créer une réservation VIP pour un client.</p>
-        </div>
-        <div class="soft-panel p-5">
-          <h2 class="mb-2 text-lg font-bold">Gérer le menu</h2>
-          <p class="text-sm text-white/70">Mettre à jour les produits et les prix.</p>
-        </div>
-        <div class="soft-panel p-5">
-          <h2 class="mb-2 text-lg font-bold">Gérer les événements</h2>
-          <p class="text-sm text-white/70">Ajouter un tournoi ou modifier une animation.</p>
-        </div>
-      </div>
-    </section>
-  `,
+  templateUrl: './staff-dashboard.component.html',
+  styleUrls: ['./staff-dashboard.component.scss'],
 })
 export class StaffDashboardComponent {}
