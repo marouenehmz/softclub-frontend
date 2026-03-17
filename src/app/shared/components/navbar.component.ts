@@ -13,6 +13,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/menu" routerLinkActive="text-white">Menu</a>
           <a routerLink="/events" routerLinkActive="text-white">Événements</a>
           <a routerLink="/vip" routerLinkActive="text-white">VIP</a>
+          <a routerLink="/contact" routerLinkActive="text-white">Contact</a>
         </nav>
         <a routerLink="/login" class="soft-btn">Connexion</a>
       </div>
