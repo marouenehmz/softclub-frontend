@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { PublicLayoutComponent } from './layouts/public-layout.component';
-import { DashboardLayoutComponent } from './layouts/dashboard-layout.component';
-import { AdminLayoutComponent } from './layouts/admin-layout.component';
+import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 export const routes: Routes = [
