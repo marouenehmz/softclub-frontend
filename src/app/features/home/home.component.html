@@ -23,7 +23,7 @@
     <div class="right">
       <article
         #billardCard
-        class="feature-card ps-square"
+        class="feature-card feature-card--billard ps-square"
         tabindex="0"
         (mousemove)="onCardMove($event, billardCard)"
         (mouseleave)="resetCardLetters(billardCard)"
@@ -32,7 +32,7 @@
         <div class="feature-content">
           <h3 class="split-title">
             @for (letter of billardLetters; track $index) {
-              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
             }
           </h3>
           <p>Tables premium et ambiance moderne.</p>
@@ -41,7 +41,7 @@
 
       <article
         #vipCard
-        class="feature-card ps-circle"
+        class="feature-card feature-card--vip ps-circle"
         tabindex="0"
         (mousemove)="onCardMove($event, vipCard)"
         (mouseleave)="resetCardLetters(vipCard)"
@@ -50,7 +50,7 @@
         <div class="feature-content">
           <h3 class="split-title">
             @for (letter of vipLetters; track $index) {
-              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
             }
           </h3>
           <p>Réservations privées à l'étage.</p>
@@ -59,7 +59,7 @@
 
       <article
         #ps5Card
-        class="feature-card ps-triangle"
+        class="feature-card feature-card--ps5 ps-triangle"
         tabindex="0"
         (mousemove)="onCardMove($event, ps5Card)"
         (mouseleave)="resetCardLetters(ps5Card)"
@@ -68,7 +68,7 @@
         <div class="feature-content">
           <h3 class="split-title">
             @for (letter of ps5Letters; track $index) {
-              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
+              <span class="letter">{{ letter === ' ' ? ' ' : letter }}</span>
             }
           </h3>
           <p>Espace gaming dédié.</p>
@@ -77,7 +77,7 @@
 
       <article
         #premiumCard
-        class="feature-card ps-cross"
+        class="feature-card feature-card--premium ps-cross"
         tabindex="0"
         (mousemove)="onCardMove($event, premiumCard)"
         (mouseleave)="resetCardLetters(premiumCard)"
