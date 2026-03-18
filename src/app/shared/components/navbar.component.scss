@@ -1,0 +1,87 @@
+.mobile-menu-btn {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(227, 83, 54, 0.2);
+  background: rgba(227, 83, 54, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+    0 8px 20px rgba(0, 0, 0, 0.28),
+    0 0 20px rgba(227, 83, 54, 0.08);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.mobile-menu-btn span {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #fff;
+  transition:
+    transform 0.28s ease,
+    opacity 0.2s ease,
+    top 0.28s ease;
+}
+
+.mobile-menu-btn span:nth-child(1) {
+  top: 14px;
+}
+
+.mobile-menu-btn span:nth-child(2) {
+  top: 21px;
+}
+
+.mobile-menu-btn span:nth-child(3) {
+  top: 28px;
+}
+
+.mobile-menu-btn.open span:nth-child(1) {
+  top: 21px;
+  transform: rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.mobile-menu-btn.open span:nth-child(3) {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+.mobile-nav-panel {
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+.mobile-link {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 1rem;
+  border-radius: 14px;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mobile-link:hover {
+  background: rgba(227, 83, 54, 0.08);
+  border-color: rgba(227, 83, 54, 0.2);
+}

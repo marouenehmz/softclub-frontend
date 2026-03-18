@@ -1,15 +1,29 @@
-<section class="soft-container py-16">
-  <h1 class="soft-section-title">Événements</h1>
-  <div class="grid gap-6 md:grid-cols-3">
-    @for (event of events(); track event.id) {
-      <article class="soft-panel p-6">
-        <p class="mb-2 text-xs uppercase tracking-[0.2em] text-[#f4f1ec]/60">
-          {{ event.category }}
-        </p>
-        <h2 class="mb-3 text-xl font-bold">{{ event.title }}</h2>
-        <p class="mb-4 text-sm text-white/70">{{ event.description }}</p>
-        <div class="text-sm text-white/80">{{ event.date }}</div>
-      </article>
-    }
+@if (hasEvents) {
+  <div class="events-list">
+    <!-- liste des événements -->
   </div>
-</section>
+} @else {
+  <div class="content soft-container">
+    <div class="grid">
+      <div class="left">
+        <p class="tag">SOFT CLUB</p>
+        <h1 class="title">Événements</h1>
+
+        <p class="subtitle">
+          Des tournois, soirées VIP et expériences gaming uniques arrivent bientôt.
+        </p>
+      </div>
+
+      <div class="right">
+        <div class="coming-card">
+          <div class="badge">
+            <i class="fa-solid fa-bolt"></i>
+            Prochains événements en approche
+          </div>
+
+          <p class="description">Reste connecté pour ne rien manquer 🔥</p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -10,7 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class ContactComponent {
   phone = '+33 6 00 00 00 00';
   email = 'contact@soft.com';
-  address = 'Soft, Mahdia, Tunisie';
+  address = 'Zone touristique, Mahdia, Tunisie';
 
   // Remplace par le vrai lien Google Maps embed
   mapUrl: SafeResourceUrl;

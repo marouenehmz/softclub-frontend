@@ -6,9 +6,9 @@
     <div class="page-header">
       <div>
         <p class="section-tag">SOFT VIP</p>
-        <h1>Réservation VIP</h1>
+        <h1>Réservation</h1>
         <p class="section-subtitle">
-          Consultez les créneaux de la semaine et réservez votre espace VIP.
+          Consultez les créneaux disponibles et réservez votre espace VIP ou votre poste PS5.
         </p>
       </div>
     </div>
@@ -25,7 +25,7 @@
           <h2>
             {{ selectedEventId ? 'Modifier la réservation' : 'Nouvelle réservation' }}
           </h2>
-          <p>Complète les informations pour confirmer le créneau VIP.</p>
+          <p>Choisissez le type, l’heure et la durée. Maximum 3 heures par réservation.</p>
         </div>
 
         <button type="button" class="close-btn" (click)="closeModal()">×</button>
@@ -34,19 +34,34 @@
       <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
         <div class="form-grid">
           <div class="form-group">
-            <label for="start">Début</label>
-            <input id="start" type="datetime-local" formControlName="start" />
-            <small *ngIf="startCtrl?.invalid && startCtrl?.touched">
-              La date de début est obligatoire.
+            <label for="reservationType">Type de réservation</label>
+            <select id="reservationType" formControlName="reservationType">
+              <option value="vip">Salle VIP</option>
+              <option value="ps5">Poste PS5 individuel</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reservationDate">Date sélectionnée</label>
+            <input id="reservationDate" type="text" formControlName="reservationDate" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="startTime">Heure de début</label>
+            <input id="startTime" type="time" formControlName="startTime" />
+            <small *ngIf="startTimeCtrl?.invalid && startTimeCtrl?.touched">
+              L’heure de début est obligatoire.
             </small>
           </div>
 
           <div class="form-group">
-            <label for="end">Fin</label>
-            <input id="end" type="datetime-local" formControlName="end" />
-            <small *ngIf="endCtrl?.invalid && endCtrl?.touched">
-              La date de fin est obligatoire.
-            </small>
+            <label for="durationHours">Durée</label>
+            <select id="durationHours" formControlName="durationHours">
+              <option [value]="1">1 heure</option>
+              <option [value]="2">2 heures</option>
+              <option [value]="3">3 heures</option>
+            </select>
+            <small> Pour une réservation de plus de 3 heures, veuillez contacter Soft. </small>
           </div>
 
           <div class="form-group full-width">
@@ -72,8 +87,11 @@
 
           <div class="form-group">
             <label for="guests">Nombre de personnes</label>
-            <input id="guests" type="number" min="1" formControlName="guests" />
-            <small *ngIf="guestsCtrl?.invalid && guestsCtrl?.touched"> Minimum 1 personne. </small>
+            <input id="guests" type="number" min="1" [max]="maxGuests" formControlName="guests" />
+            <small *ngIf="guestsCtrl?.invalid && guestsCtrl?.touched">
+              Maximum {{ maxGuests }} personne{{ maxGuests > 1 ? 's' : '' }} pour
+              {{ reservationTypeLabel }}.
+            </small>
           </div>
 
           <div class="form-group full-width">
@@ -105,6 +123,62 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+  <div
+    class="modal-backdrop confirmation-backdrop"
+    *ngIf="showConfirmationModal && reservationSummary"
+    (click)="closeConfirmationModal()"
+  >
+    <div class="confirmation-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2>Réservation confirmée</h2>
+          <p>Votre réservation a bien été enregistrée.</p>
+        </div>
+
+        <button type="button" class="close-btn" (click)="closeConfirmationModal()">×</button>
+      </div>
+
+      <div class="confirmation-content">
+        <div class="confirmation-badge">Confirmation</div>
+
+        <div class="confirmation-line">
+          <span>Nom</span>
+          <strong>{{ reservationSummary.fullName }}</strong>
+        </div>
+
+        <div class="confirmation-line">
+          <span>Type</span>
+          <strong>{{ reservationSummary.reservationTypeLabel }}</strong>
+        </div>
+
+        <div class="confirmation-line">
+          <span>Date</span>
+          <strong>{{ reservationSummary.date }}</strong>
+        </div>
+
+        <div class="confirmation-line">
+          <span>Heure</span>
+          <strong>{{ reservationSummary.startTime }}</strong>
+        </div>
+
+        <div class="confirmation-line">
+          <span>Durée</span>
+          <strong>{{ reservationSummary.durationHours }} h</strong>
+        </div>
+
+        <div class="confirmation-line total">
+          <span>Prix total</span>
+          <strong>{{ reservationSummary.totalPrice }} DT</strong>
+        </div>
+
+        <div class="confirmation-actions">
+          <button type="button" class="soft-btn-gold" (click)="closeConfirmationModal()">
+            Fermer
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>

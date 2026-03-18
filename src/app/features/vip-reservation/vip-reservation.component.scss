@@ -601,3 +601,133 @@ small {
     padding: 12px;
   }
 }
+select {
+  width: 100%;
+  border: 1px solid var(--soft-border-light);
+  background: rgba(10, 10, 10, 0.9);
+  color: var(--soft-text);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+select:focus {
+  border-color: var(--soft-primary);
+  box-shadow: 0 0 0 3px rgba(227, 83, 54, 0.12);
+  background: rgba(14, 14, 14, 0.96);
+}
+
+input[readonly] {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+.confirmation-backdrop {
+  z-index: 100000;
+}
+
+.confirmation-modal {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(20, 20, 20, 0.96);
+  border: 1px solid var(--soft-border);
+  border-radius: 24px;
+  color: var(--soft-text);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 36px rgba(227, 83, 54, 0.1);
+  overflow: hidden;
+  animation: modalIn 0.25s ease;
+}
+
+.confirmation-content {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.confirmation-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(227, 83, 54, 0.14);
+  color: var(--soft-primary-light);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.confirmation-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.confirmation-line span {
+  color: var(--soft-text-muted);
+}
+
+.confirmation-line strong {
+  color: var(--soft-text);
+  text-align: right;
+}
+
+.confirmation-line.total {
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-bottom: none;
+}
+
+.confirmation-line.total strong {
+  color: var(--soft-primary-light);
+  font-size: 1.1rem;
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .confirmation-modal {
+    max-width: 100%;
+    border-radius: 18px;
+  }
+
+  .confirmation-content {
+    padding: 0 1rem 1rem;
+  }
+
+  .confirmation-line {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .confirmation-line strong {
+    text-align: left;
+  }
+
+  .confirmation-actions {
+    justify-content: stretch;
+  }
+
+  .confirmation-actions .soft-btn-gold {
+    width: 100%;
+  }
+}
+input[type='time']::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* rend l'icône blanche */
+  opacity: 1;
+  cursor: pointer;
+}

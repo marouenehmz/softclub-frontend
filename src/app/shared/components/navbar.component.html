@@ -1,13 +1,61 @@
 <header class="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur">
   <div class="soft-container flex h-20 items-center justify-between">
-    <a routerLink="/" class="text-2xl font-black uppercase tracking-wide">Soft Club</a>
-    <nav class="hidden gap-6 md:flex text-sm text-white/80">
-      <a routerLink="/" routerLinkActive="text-white">Accueil</a>
+    <a routerLink="/" class="text-2xl font-black uppercase tracking-wide"> Soft Club </a>
+
+    <nav class="hidden gap-6 text-sm text-white/80 md:flex">
+      <a routerLink="/" routerLinkActive="text-white" [routerLinkActiveOptions]="{ exact: true }">
+        Accueil
+      </a>
       <a routerLink="/menu" routerLinkActive="text-white">Menu</a>
       <a routerLink="/events" routerLinkActive="text-white">Événements</a>
       <a routerLink="/vip" routerLinkActive="text-white">VIP</a>
-      <a routerLink="/contact" routerLinkActive="text-white">Contacts</a>
+      <a routerLink="/contact" routerLinkActive="text-white">Contact</a>
     </nav>
-    <a routerLink="/login" class="soft-btn">Connexion</a>
+
+    <div class="hidden items-center md:flex">
+      <a routerLink="/login" class="soft-btn">Connexion</a>
+    </div>
+
+    <button
+      type="button"
+      class="mobile-menu-btn md:hidden"
+      [class.open]="mobileMenuOpen"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="mobileMenuOpen"
+      aria-label="Ouvrir le menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div
+    *ngIf="mobileMenuOpen"
+    class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+    (click)="closeMenu()"
+  ></div>
+
+  <div
+    class="mobile-nav-panel fixed top-20 right-0 z-50 h-[calc(100vh-80px)] w-[85%] max-w-sm border-l border-white/10 bg-black/95 transition-transform duration-300"
+    [class.translate-x-0]="mobileMenuOpen"
+    [class.translate-x-full]="!mobileMenuOpen"
+    (touchstart)="onPanelTouchStart($event)"
+    (touchmove)="onPanelTouchMove($event)"
+    (touchend)="onPanelTouchEnd()"
+  >
+    <div class="flex flex-col gap-2 p-4 text-white">
+      <a routerLink="/" (click)="closeMenu()" class="mobile-link">Accueil</a>
+      <a routerLink="/menu" (click)="closeMenu()" class="mobile-link">Menu</a>
+      <a routerLink="/events" (click)="closeMenu()" class="mobile-link">Événements</a>
+      <a routerLink="/vip" (click)="closeMenu()" class="mobile-link">VIP</a>
+      <a routerLink="/contact" (click)="closeMenu()" class="mobile-link">Contact</a>
+
+      <div class="mt-4">
+        <a routerLink="/login" (click)="closeMenu()" class="soft-btn block w-full text-center">
+          Connexion
+        </a>
+      </div>
+    </div>
   </div>
 </header>
