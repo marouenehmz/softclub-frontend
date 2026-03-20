@@ -8,7 +8,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
-  phone = '+33 6 00 00 00 00';
+  phoneTN = '+216 53 075 084';
+  phoneFR = '+33 6 52 75 84 09';
   email = 'contact@soft.com';
   address = 'Zone touristique, Mahdia, Tunisie';
 

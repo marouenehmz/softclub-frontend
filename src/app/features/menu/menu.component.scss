@@ -1,42 +1,89 @@
 .menu-page {
-  padding: 60px 20px;
+  padding: 64px 20px 80px;
   color: var(--soft-text);
+  background:
+    radial-gradient(circle at top center, rgba(227, 83, 54, 0.08), transparent 35%),
+    linear-gradient(180deg, var(--soft-surface) 0%, var(--soft-bg) 100%);
 }
 
 .container {
-  max-width: 1000px;
-  margin: auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* ===== TITLE ===== */
+.menu-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.menu-kicker {
+  margin: 0 0 10px;
+  color: var(--soft-primary);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
 
 .title {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  text-align: center;
+  margin: 0;
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
 }
 
-/* ===== SECTION ===== */
+.menu-subtitle {
+  margin: 14px auto 0;
+  max-width: 680px;
+  color: var(--soft-text-muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 22px;
+}
 
 .menu-section {
-  margin-bottom: 40px;
-  background: var(--soft-surface-2);
-  padding: 30px;
-  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
   border: 1px solid var(--soft-border-light);
+  border-radius: 24px;
+  padding: 22px;
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(227, 83, 54, 0.05);
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  backdrop-filter: blur(10px);
+}
+
+.menu-section::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--soft-primary), transparent);
+  opacity: 0.9;
 }
 
 .menu-section h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin: 0 0 18px;
   color: var(--soft-primary-light);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
-/* ===== LIST ===== */
+.menu-section--highlight {
+  border-color: rgba(227, 83, 54, 0.28);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.32),
+    0 0 28px rgba(227, 83, 54, 0.08);
+}
 
 .menu-list {
   display: flex;
@@ -44,25 +91,94 @@
   gap: 12px;
 }
 
-/* ===== ITEM ===== */
-
 .menu-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
-  font-size: 16px;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid transparent;
   transition:
-    background 0.2s ease,
+    transform 0.2s ease,
     border-color 0.2s ease,
-    transform 0.2s ease;
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .menu-item:hover {
+  transform: translateY(-2px);
   background: rgba(227, 83, 54, 0.08);
-  border-color: var(--soft-border);
-  transform: translateY(-1px);
+  border-color: rgba(227, 83, 54, 0.2);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.menu-item span:first-child,
+.menu-item strong {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.menu-item span:last-child {
+  flex-shrink: 0;
+  color: var(--soft-primary-light);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.menu-item--multi {
+  align-items: flex-start;
+}
+
+.menu-item--multi > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-item--multi small {
+  color: var(--soft-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .menu-section {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-page {
+    padding: 48px 16px 64px;
+  }
+
+  .menu-section {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .menu-item {
+    padding: 12px 14px;
+    min-height: 52px;
+  }
+
+  .menu-item span:first-child,
+  .menu-item strong,
+  .menu-item span:last-child {
+    font-size: 15px;
+  }
 }

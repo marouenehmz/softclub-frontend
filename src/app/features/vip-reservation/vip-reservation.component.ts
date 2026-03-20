@@ -14,17 +14,19 @@ import { DateClickArg } from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import frLocale from '@fullcalendar/core/locales/fr';
+import { RouterLink } from '@angular/router';
 
 type ReservationType = 'vip' | 'ps5';
 
 @Component({
   selector: 'app-vip-reservation',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FullCalendarModule],
+  imports: [CommonModule, ReactiveFormsModule, FullCalendarModule, RouterLink],
   templateUrl: './vip-reservation.component.html',
   styleUrls: ['./vip-reservation.component.scss'],
 })
 export class VipReservationComponent {
+  inProgress = true;
   isMobile = window.innerWidth <= 768;
   showReservationModal = false;
   selectedEventId: string | null = null;

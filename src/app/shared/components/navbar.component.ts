@@ -11,7 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavbarComponent {
   mobileMenuOpen = false;
-
+  isMenuOpen = false;
   private touchStartX = 0;
   private touchCurrentX = 0;
 
