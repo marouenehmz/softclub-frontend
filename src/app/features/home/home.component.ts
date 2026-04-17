@@ -12,7 +12,7 @@ export class HomeComponent {
   billardLetters = 'Zone Billard'.split('');
   vipLetters = 'VIP Lounge'.split('');
   ps5Letters = 'Zone PS5'.split('');
-  premiumLetters = 'Expérience premium'.split('');
+  premiumLetters = 'Expérience Premium'.split('');
 
   onCardMove(event: MouseEvent, card: HTMLElement): void {
     if (!card) return;
