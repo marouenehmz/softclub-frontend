@@ -1,17 +1,171 @@
-<section>
-  <h1 class="mb-6 text-3xl font-bold">Dashboard Staff</h1>
-  <div class="grid gap-4 md:grid-cols-3">
-    <div class="soft-panel p-5" routerLink="/dashboard/staff/reservations">
-      <h2 class="mb-2 text-lg font-bold">Créer une réservation</h2>
-      <p class="text-sm text-white/70">Créer une réservation VIP pour un client.</p>
+<section class="staff-dashboard-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Operations</p>
+      <h1 class="page-title">Dashboard Staff</h1>
+      <p class="page-subtitle">
+        Vue rapide sur les événements à gérer et les participants en attente.
+      </p>
     </div>
-    <div class="soft-panel p-5" routerLink="/dashboard/staff/menu">
-      <h2 class="mb-2 text-lg font-bold">Gérer le menu</h2>
-      <p class="text-sm text-white/70">Mettre à jour les produits et les prix.</p>
-    </div>
-    <div class="soft-panel p-5" routerLink="/dashboard/staff/events">
-      <h2 class="mb-2 text-lg font-bold">Gérer les événements</h2>
-      <p class="text-sm text-white/70">Ajouter un tournoi ou modifier une animation.</p>
-    </div>
+
+    <button type="button" class="soft-btn-outline" (click)="loadDashboard()">Actualiser</button>
   </div>
+
+  @if (error) {
+    <div class="message error">{{ error }}</div>
+  }
+
+  @if (loading) {
+    <div class="soft-panel loading-panel">
+      <p>Chargement du dashboard staff...</p>
+    </div>
+  } @else {
+    <div class="stats-grid">
+      <article class="soft-panel stat-card">
+        <span class="stat-label">Événements actifs</span>
+        <strong class="stat-value">{{ stats.activeEvents }}</strong>
+      </article>
+
+      <article class="soft-panel stat-card">
+        <span class="stat-label">Événements ouverts</span>
+        <strong class="stat-value">{{ stats.openEvents }}</strong>
+      </article>
+
+      <article class="soft-panel stat-card accent">
+        <span class="stat-label">Participants en attente</span>
+        <strong class="stat-value">{{ stats.pendingParticipants }}</strong>
+      </article>
+    </div>
+
+    <div class="quick-grid">
+      <a class="soft-panel quick-card" routerLink="/dashboard/staff/events">
+        <span class="quick-icon">🎯</span>
+        <div>
+          <h2>Gestion des événements</h2>
+          <p>Créer ou modifier un tournoi, une animation ou une session spéciale.</p>
+        </div>
+      </a>
+
+      <a class="soft-panel quick-card" routerLink="/dashboard/staff/menu">
+        <span class="quick-icon">🍹</span>
+        <div>
+          <h2>Menu</h2>
+          <p>Mettre à jour les produits, visuels et prix.</p>
+        </div>
+      </a>
+
+      <a class="soft-panel quick-card" routerLink="/dashboard/staff/reservations">
+        <span class="quick-icon">📅</span>
+        <div>
+          <h2>Réservations</h2>
+          <p>Créer rapidement une réservation pour un client.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="content-grid">
+      <article class="soft-panel next-event-card">
+        <div class="section-head">
+          <div>
+            <h2>Prochain événement</h2>
+            <p>Le prochain point d’attention pour le staff.</p>
+          </div>
+        </div>
+
+        @if (!nextEvent) {
+          <p class="empty-state">Aucun événement à venir.</p>
+        } @else {
+          <div class="next-event-body">
+            <div class="title-line">
+              <h3>{{ nextEvent.title }}</h3>
+              <span class="status-badge" [ngClass]="getStatusClass(nextEvent.status)">
+                {{ nextEvent.status }}
+              </span>
+            </div>
+
+            <p class="meta">
+              {{ formatDate(nextEvent.startAt) }} • {{ nextEvent.registeredParticipants }}/{{
+                nextEvent.maxParticipants
+              }}
+              inscrits
+            </p>
+
+            <p class="description">
+              {{ nextEvent.description }}
+            </p>
+
+            <div class="actions">
+              <button type="button" class="soft-btn" (click)="openEvent(nextEvent.id)">
+                Ouvrir
+              </button>
+              <button type="button" class="soft-btn-outline" (click)="closeEvent(nextEvent.id)">
+                Fermer
+              </button>
+              <a routerLink="/dashboard/staff/events" class="soft-btn-outline">Gérer</a>
+            </div>
+          </div>
+        }
+      </article>
+
+      <article class="soft-panel pending-card">
+        <div class="section-head">
+          <div>
+            <h2>Participants en attente</h2>
+            <p>Validation rapide depuis le dashboard.</p>
+          </div>
+        </div>
+
+        @if (!pendingParticipantsByEvent.length) {
+          <p class="empty-state">Aucun participant en attente.</p>
+        } @else {
+          <div class="pending-groups">
+            @for (group of pendingParticipantsByEvent; track group.event.id) {
+              <div class="pending-group">
+                <div class="group-head">
+                  <div>
+                    <h3>{{ group.event.title }}</h3>
+                    <p>{{ formatDate(group.event.startAt) }}</p>
+                  </div>
+                  <span class="pill">{{ group.pending.length }} en attente</span>
+                </div>
+
+                <div class="pending-list">
+                  @for (participant of group.pending; track participant.id) {
+                    <div class="pending-row">
+                      <div>
+                        <strong>{{ participant.fullName }}</strong>
+                        <p>
+                          {{ participant.phone }}
+                          @if (participant.email) {
+                            • {{ participant.email }}
+                          }
+                        </p>
+                      </div>
+
+                      <div class="row-actions">
+                        <button
+                          type="button"
+                          class="soft-btn"
+                          (click)="confirmParticipant(group.event.id, participant.id)"
+                        >
+                          Confirmer
+                        </button>
+                        <button
+                          type="button"
+                          class="soft-btn-outline danger"
+                          (click)="cancelParticipant(group.event.id, participant.id)"
+                        >
+                          Annuler
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </article>
+    </div>
+  }
 </section>
