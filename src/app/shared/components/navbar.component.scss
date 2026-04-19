@@ -409,3 +409,33 @@
     font-size: 16px;
   }
 }
+.soft-btn-outline {
+  border: 1px solid rgb(255 255 255 / 30%);
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  color: white;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.soft-btn-outline:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+.soft-btn-danger {
+  background: #dc2626;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.soft-btn-danger:hover {
+  background: #b91c1c;
+}

@@ -1,30 +1,40 @@
-import { Injectable, signal } from '@angular/core';
-import { UserRole } from '../models/user.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private token = signal<string | null>(localStorage.getItem('soft_token'));
-  private roleSignal = signal<UserRole | null>(
-    (localStorage.getItem('soft_role') as UserRole | null) ?? null,
-  );
-  isLoggedIn(): boolean {
-    return !!this.token();
+  private API = 'http://localhost:8080/api/auth';
+
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string) {
+    return this.http.post<any>(`${this.API}/login`, { email, password }).pipe(
+      tap((res) => {
+        localStorage.setItem('soft_token', res.token);
+        localStorage.setItem('soft_role', res.role);
+      }),
+    );
   }
-  role(): UserRole | null {
-    return this.roleSignal();
+
+  getMe() {
+    return this.http.get<any>(`${this.API}/me`);
   }
-  login(token: string, role: UserRole): void {
-    localStorage.setItem('soft_token', token);
-    localStorage.setItem('soft_role', role);
-    this.token.set(token);
-    this.roleSignal.set(role);
+
+  getToken(): string | null {
+    return localStorage.getItem('soft_token');
   }
-  logout(): void {
+
+  getRole(): string | null {
+    return localStorage.getItem('soft_role');
+  }
+
+  isLogged(): boolean {
+    return !!this.getToken();
+  }
+
+  logout() {
     localStorage.removeItem('soft_token');
     localStorage.removeItem('soft_role');
-    this.token.set(null);
-    this.roleSignal.set(null);
-  }
-  getToken(): string | null {
-    return this.token();
   }
 }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +15,26 @@ export class NavbarComponent {
   isMenuOpen = false;
   private touchStartX = 0;
   private touchCurrentX = 0;
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+  ) {}
 
   toggleMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  isLogged(): boolean {
+    return this.auth.isLogged();
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
+
+  getRole(): string | null {
+    return this.auth.getRole();
   }
 
   closeMenu(): void {

@@ -13,20 +13,26 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-  email = 'admin@softclub.com';
-  password = 'demo';
-  submit(): void {
-    if (this.email.includes('admin')) {
-      this.authService.login('fake-admin-token', 'ADMIN');
-      this.router.navigateByUrl('/admin');
-      return;
-    }
-    if (this.email.includes('staff')) {
-      this.authService.login('fake-staff-token', 'STAFF');
-      this.router.navigateByUrl('/dashboard/staff');
-      return;
-    }
-    this.authService.login('fake-vip-token', 'VIP');
-    this.router.navigateByUrl('/dashboard/vip');
+  email = '';
+  password = '';
+  submit() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        const role = res.role;
+
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else if (role === 'WORKER') {
+          this.router.navigate(['/dashboard/staff']);
+        } else if (role === 'VIP') {
+          this.router.navigate(['/dashboard/vip']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      },
+      error: () => {
+        alert('Email ou mot de passe incorrect');
+      },
+    });
   }
 }
