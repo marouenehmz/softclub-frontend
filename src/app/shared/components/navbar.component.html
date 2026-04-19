@@ -36,12 +36,10 @@
         <!-- ✅ LOGGED -->
         <ng-container *ngIf="isLogged()">
           <!-- ADMIN / WORKER -->
-          <a
-            *ngIf="getRole() === 'ADMIN' || getRole() === 'WORKER'"
-            routerLink="/admin"
-            class="soft-btn"
-          >
-            Admin
+          <a *ngIf="getRole() === 'ADMIN'" routerLink="/admin" class="soft-btn"> Admin </a>
+
+          <a *ngIf="getRole() === 'WORKER'" routerLink="/dashboard/staff" class="soft-btn">
+            Staff
           </a>
 
           <!-- VIP -->
@@ -84,12 +82,21 @@
 
         <ng-container *ngIf="isLogged()">
           <a
-            *ngIf="getRole() === 'ADMIN' || getRole() === 'WORKER'"
+            *ngIf="getRole() === 'ADMIN'"
             routerLink="/admin"
             class="soft-btn w-full"
             (click)="isMenuOpen = false"
           >
             Admin
+          </a>
+
+          <a
+            *ngIf="getRole() === 'WORKER'"
+            routerLink="/dashboard/staff"
+            class="soft-btn w-full"
+            (click)="isMenuOpen = false"
+          >
+            Staff
           </a>
 
           <button (click)="logout(); isMenuOpen = false" class="soft-btn-danger w-full">

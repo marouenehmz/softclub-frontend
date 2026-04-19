@@ -4,6 +4,10 @@ import { DashboardLayoutComponent } from './layouts/dashboard-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout.component';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
+import { AdminDashboardComponent } from './features/admin-dashboard/admin-dashboard.component';
+import { AdminEventsComponent } from './features/admin-events/admin-events.component';
+import { VipDashboardComponent } from './features/vip-dashboard/vip-dashboard.component';
+import { StaffDashboardComponent } from './features/staff-dashboard/staff-dashboard.component';
 export const routes: Routes = [
   {
     path: '',
@@ -74,19 +78,24 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     canActivate: [authGuard, roleGuard(['ADMIN'])],
     children: [
+      { path: '', component: AdminDashboardComponent },
+      { path: 'events', component: AdminEventsComponent },
+    ],
+  },
+  {
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
+    canActivate: [authGuard],
+    children: [
       {
-        path: '',
-        loadComponent: () =>
-          import('./features/admin-dashboard/admin-dashboard.component').then(
-            (m) => m.AdminDashboardComponent,
-          ),
+        path: 'vip',
+        component: VipDashboardComponent,
+        canActivate: [roleGuard(['VIP'])],
       },
       {
-        path: '',
-        loadComponent: () =>
-          import('./features/admin-events/admin-events.component').then(
-            (m) => m.AdminEventsComponent,
-          ),
+        path: 'staff',
+        component: StaffDashboardComponent,
+        canActivate: [roleGuard(['WORKER'])],
       },
     ],
   },
