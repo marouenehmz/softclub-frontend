@@ -25,6 +25,34 @@
       <a routerLink="/events" routerLinkActive="active-link">Événements</a>
       <a routerLink="/vip" routerLinkActive="active-link">VIP</a>
       <a routerLink="/contact" routerLinkActive="active-link">Contact</a>
+
+      <!-- 🔐 AUTH PART -->
+      <div class="ml-6 flex items-center gap-3">
+        <!-- ❌ NOT LOGGED -->
+        <ng-container *ngIf="!isLogged()">
+          <a routerLink="/login" class="soft-btn-outline">Connexion</a>
+        </ng-container>
+
+        <!-- ✅ LOGGED -->
+        <ng-container *ngIf="isLogged()">
+          <!-- ADMIN / WORKER -->
+          <a
+            *ngIf="getRole() === 'ADMIN' || getRole() === 'WORKER'"
+            routerLink="/admin"
+            class="soft-btn"
+          >
+            Admin
+          </a>
+
+          <!-- VIP -->
+          <a *ngIf="getRole() === 'VIP'" routerLink="/dashboard/vip" class="soft-btn">
+            Mon espace
+          </a>
+
+          <!-- LOGOUT -->
+          <button (click)="logout()" class="soft-btn-danger">Logout</button>
+        </ng-container>
+      </div>
     </nav>
   </div>
 
@@ -46,6 +74,29 @@
       <a routerLink="/contact" routerLinkActive="active-link" (click)="isMenuOpen = false">
         Contact
       </a>
+      <!-- AUTH MOBILE -->
+      <div class="mt-4 flex flex-col gap-2 px-4">
+        <ng-container *ngIf="!isLogged()">
+          <a routerLink="/login" class="soft-btn w-full" (click)="isMenuOpen = false">
+            Connexion
+          </a>
+        </ng-container>
+
+        <ng-container *ngIf="isLogged()">
+          <a
+            *ngIf="getRole() === 'ADMIN' || getRole() === 'WORKER'"
+            routerLink="/admin"
+            class="soft-btn w-full"
+            (click)="isMenuOpen = false"
+          >
+            Admin
+          </a>
+
+          <button (click)="logout(); isMenuOpen = false" class="soft-btn-danger w-full">
+            Logout
+          </button>
+        </ng-container>
+      </div>
     </nav>
   </div>
 </header>

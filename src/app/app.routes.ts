@@ -20,7 +20,12 @@ export const routes: Routes = [
       {
         path: 'events',
         loadComponent: () =>
-          import('./features/events/events.component').then((m) => m.EventsComponent),
+          import('./features/events/events-list.component').then((m) => m.EventsListComponent),
+      },
+      {
+        path: 'events/:id',
+        loadComponent: () =>
+          import('./features/events/event-detail.component').then((m) => m.EventDetailComponent),
       },
       {
         path: 'vip',
@@ -48,7 +53,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'vip',
-        canActivate: [roleGuard(['VIP', 'STAFF', 'ADMIN'])],
+        canActivate: [roleGuard(['VIP', 'WORKER', 'ADMIN'])],
         loadComponent: () =>
           import('./features/vip-dashboard/vip-dashboard.component').then(
             (m) => m.VipDashboardComponent,
@@ -56,7 +61,7 @@ export const routes: Routes = [
       },
       {
         path: 'staff',
-        canActivate: [roleGuard(['STAFF', 'ADMIN'])],
+        canActivate: [roleGuard(['WORKER', 'ADMIN'])],
         loadComponent: () =>
           import('./features/staff-dashboard/staff-dashboard.component').then(
             (m) => m.StaffDashboardComponent,
@@ -74,6 +79,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin-dashboard/admin-dashboard.component').then(
             (m) => m.AdminDashboardComponent,
+          ),
+      },
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/admin-events/admin-events.component').then(
+            (m) => m.AdminEventsComponent,
           ),
       },
     ],
