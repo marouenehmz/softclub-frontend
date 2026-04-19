@@ -9,10 +9,9 @@ export const roleGuard = (roles: string[]): CanActivateFn => {
     const role = auth.getRole();
 
     if (!role || !roles.includes(role)) {
-      router.navigate(['/']);
+      router.navigate(['/login']);
       return false;
     }
-
     return true;
   };
 };
