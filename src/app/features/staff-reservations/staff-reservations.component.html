@@ -1,0 +1,162 @@
+<section class="staff-reservations-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Staff</p>
+      <h1 class="page-title">Réservations</h1>
+      <p class="page-subtitle">
+        Créer rapidement une réservation et traiter les demandes en attente.
+      </p>
+    </div>
+
+    <button type="button" class="soft-btn-outline" (click)="loadReservations()">Actualiser</button>
+  </div>
+
+  @if (error()) {
+    <div class="message error">{{ error() }}</div>
+  }
+
+  @if (success()) {
+    <div class="message success">{{ success() }}</div>
+  }
+
+  <div class="stats-grid">
+    <article class="soft-panel stat-card">
+      <span class="label">Total</span>
+      <strong>{{ stats().total }}</strong>
+    </article>
+    <article class="soft-panel stat-card">
+      <span class="label">En attente</span>
+      <strong>{{ stats().pending }}</strong>
+    </article>
+    <article class="soft-panel stat-card">
+      <span class="label">Confirmées</span>
+      <strong>{{ stats().confirmed }}</strong>
+    </article>
+    <article class="soft-panel stat-card">
+      <span class="label">Annulées / refusées</span>
+      <strong>{{ stats().cancelled }}</strong>
+    </article>
+  </div>
+
+  <div class="content-grid">
+    <article class="soft-panel form-card">
+      <div class="section-head">
+        <h2>Créer une réservation</h2>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="reservation-form">
+        <div class="field-grid two-cols">
+          <div class="field">
+            <label>Salle / Room ID</label>
+            <input class="soft-input" formControlName="roomId" type="number" />
+          </div>
+
+          <div class="field">
+            <label>Nombre de personnes</label>
+            <input class="soft-input" formControlName="guestsCount" type="number" />
+          </div>
+        </div>
+
+        <div class="field-grid two-cols">
+          <div class="field">
+            <label>Date début</label>
+            <input class="soft-input" formControlName="startAt" type="datetime-local" />
+          </div>
+
+          <div class="field">
+            <label>Date fin</label>
+            <input class="soft-input" formControlName="endAt" type="datetime-local" />
+          </div>
+        </div>
+
+        <div class="field-grid two-cols">
+          <div class="field">
+            <label>Nom client</label>
+            <input class="soft-input" formControlName="fullName" type="text" />
+          </div>
+
+          <div class="field">
+            <label>Téléphone</label>
+            <input class="soft-input" formControlName="phone" type="text" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Note</label>
+          <textarea class="soft-input textarea" formControlName="note"></textarea>
+        </div>
+
+        <button class="soft-btn" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Enregistrement...' : 'Créer la réservation' }}
+        </button>
+      </form>
+    </article>
+
+    <article class="soft-panel list-card">
+      <div class="section-head section-head-row">
+        <div>
+          <h2>Liste des réservations</h2>
+          <p>Filtrer et traiter rapidement.</p>
+        </div>
+
+        <div class="filters">
+          <button class="soft-btn-outline" type="button" (click)="setFilter('ALL')">Toutes</button>
+          <button class="soft-btn-outline" type="button" (click)="setFilter('PENDING')">
+            Pending
+          </button>
+          <button class="soft-btn-outline" type="button" (click)="setFilter('CONFIRMED')">
+            Confirmées
+          </button>
+        </div>
+      </div>
+
+      @if (loading()) {
+        <p class="empty-state">Chargement...</p>
+      } @else if (!filteredReservations().length) {
+        <p class="empty-state">Aucune réservation trouvée.</p>
+      } @else {
+        <div class="reservation-list">
+          @for (reservation of filteredReservations(); track reservation.id) {
+            <div class="reservation-row">
+              <div class="reservation-main">
+                <div class="title-line">
+                  <h3>{{ reservation.fullName }}</h3>
+                  <span
+                    class="status-badge"
+                    [ngClass]="getStatusClass(reservation.status ?? 'PENDING')"
+                  >
+                    {{ reservation.status }}
+                  </span>
+                </div>
+
+                <p class="meta">
+                  Room #{{ reservation.roomId }} • {{ reservation.guestsCount }} pers •
+                  {{ reservation.startAt ? formatDate(reservation.startAt) : '-' }}
+                </p>
+
+                @if (reservation.note) {
+                  <p class="note">{{ reservation.note }}</p>
+                }
+              </div>
+
+              <div class="row-actions">
+                @if (reservation.status === 'PENDING') {
+                  <button class="soft-btn" type="button" (click)="approve(reservation.id)">
+                    Confirmer
+                  </button>
+                  <button
+                    class="soft-btn-outline danger"
+                    type="button"
+                    (click)="reject(reservation.id)"
+                  >
+                    Refuser
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </article>
+  </div>
+</section>

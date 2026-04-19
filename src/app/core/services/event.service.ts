@@ -48,20 +48,19 @@ export class EventService {
     return this.http.patch<Event>(`${this.apiUrl}/${id}/cancel`, {});
   }
 
-  joinEvent(id: number, data: JoinEventRequest): Observable<any> {
+  joinEvent(id: number, data: JoinEventRequest): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/${id}/join`, data);
   }
-  confirmParticipant(eventId: number, participantId: number) {
-    return this.http.patch(
-      `${this.apiUrl}/events/${eventId}/participants/${participantId}/confirm`,
-      {},
-    );
-  }
+
   getParticipants(eventId: number): Observable<EventParticipant[]> {
     return this.http.get<EventParticipant[]>(`${this.apiUrl}/${eventId}/participants`);
   }
 
-  cancelParticipant(eventId: number, participantId: number): Observable<any> {
+  confirmParticipant(eventId: number, participantId: number) {
+    return this.http.patch(`${this.apiUrl}/${eventId}/participants/${participantId}/confirm`, {});
+  }
+
+  cancelParticipant(eventId: number, participantId: number): Observable<unknown> {
     return this.http.patch(`${this.apiUrl}/${eventId}/participants/${participantId}/cancel`, {});
   }
 }

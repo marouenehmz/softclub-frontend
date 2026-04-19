@@ -1,25 +1,29 @@
-<div class="admin-layout">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <div class="logo">SOFT CLUB</div>
-
-        <nav>
-          <a routerLink="/admin" routerLinkActive="active"> Dashboard </a>
-
-          <a routerLink="/admin/users" routerLinkActive="active"> Utilisateurs </a>
-
-          <a routerLink="/admin/reservations" routerLinkActive="active"> Réservations </a>
-
-          <a routerLink="/admin/events" routerLinkActive="active"> Événements </a>
-
-          <a routerLink="/admin/menu" routerLinkActive="active"> Menu </a>
-
-          <a routerLink="/"> Retour site </a>
-        </nav>
-      </aside>
-
-      <!-- Main content -->
-      <main class="content">
-        <router-outlet></router-outlet>
-      </main>
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand-block">
+      <div class="brand-mark">SC</div>
+      <div>
+        <div class="brand-title">Soft Club</div>
+        <div class="brand-subtitle">Admin Panel</div>
+      </div>
     </div>
+
+    <nav class="nav-links">
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Dashboard
+      </a>
+
+      <a routerLink="/admin/events" routerLinkActive="active">Événements</a>
+
+      <a class="disabled-link">Réservations</a>
+      <a class="disabled-link">Menu</a>
+      <a class="disabled-link">Utilisateurs</a>
+
+      <a routerLink="/">Retour site</a>
+    </nav>
+  </aside>
+
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

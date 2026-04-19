@@ -1,19 +1,21 @@
-<div class="dashboard-layout">
-  <aside class="sidebar">
-    <div class="logo">SOFT CLUB</div>
+<div class="dashboard-shell">
+  <aside class="dashboard-sidebar">
+    <div class="brand-block">
+      <div class="brand-mark">SC</div>
+      <div>
+        <div class="brand-title">Soft Club</div>
+        <div class="brand-subtitle">Workspace</div>
+      </div>
+    </div>
 
-    <div class="subtitle">Dashboard</div>
-
-    <nav>
-      <a routerLink="/dashboard/vip" routerLinkActive="active"> Espace VIP </a>
-
-      <a routerLink="/dashboard/staff" routerLinkActive="active"> Espace Staff </a>
-
-      <a routerLink="/"> Retour site </a>
+    <nav class="nav-links">
+      <a routerLink="/dashboard/vip" routerLinkActive="active">Espace VIP</a>
+      <a routerLink="/dashboard/staff" routerLinkActive="active">Espace Staff</a>
+      <a routerLink="/">Retour site</a>
     </nav>
   </aside>
 
-  <main class="content">
+  <main class="dashboard-content">
     <router-outlet></router-outlet>
   </main>
 </div>
