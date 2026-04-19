@@ -1,0 +1,93 @@
+<section class="events-page">
+  <div class="events-glow"></div>
+
+  <div class="soft-container">
+    <section class="events-hero">
+      <div class="hero-copy">
+        <p class="kicker">SOFT CLUB</p>
+        <h1 class="hero-title">ÉVÉNEMENTS</h1>
+        <p class="hero-subtitle">
+          Tournois, soirées et expériences gaming exclusives à réserver directement en ligne.
+        </p>
+      </div>
+
+      <div class="hero-side">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Expériences exclusives
+        </div>
+        <p class="hero-note">
+          Rejoins les prochains événements Soft Club et réserve ta place avant qu’ils soient
+          complets.
+        </p>
+      </div>
+    </section>
+
+    @if (loading) {
+      <div class="state-card">
+        <p>Chargement des événements...</p>
+      </div>
+    } @else if (error) {
+      <div class="state-card state-error">
+        <p>{{ error }}</p>
+        <button class="soft-btn" type="button" (click)="loadEvents()">Réessayer</button>
+      </div>
+    } @else if (!events.length) {
+      <div class="state-card">
+        <p>Aucun événement actif pour le moment.</p>
+      </div>
+    } @else {
+      <section class="events-grid">
+        @for (event of events; track event.id) {
+          <article class="event-card">
+            <div class="event-media" [style.background-image]="getEventBackground(event)">
+              <div class="event-media-overlay"></div>
+
+              <div class="event-media-top">
+                <div class="event-left-badges">
+                  <span class="shape-badge">{{ getEventShape(event) }}</span>
+                  @if (event.type) {
+                    <span class="type-badge">{{ event.type }}</span>
+                  }
+                </div>
+
+                <span class="status-badge" [ngClass]="getStatusClass(event)">
+                  {{ getStatusLabel(event) }}
+                </span>
+              </div>
+
+              @if (event.price !== null && event.price !== undefined) {
+                <div class="event-price">{{ event.price }} DT</div>
+              }
+            </div>
+
+            <div class="event-content">
+              <div class="event-top">
+                <h2>{{ event.title }}</h2>
+                <p class="event-date">{{ formatDate(event.startAt) }}</p>
+              </div>
+
+              <p class="event-description">{{ event.description }}</p>
+
+              <div class="event-stats">
+                <div class="stat-pill">
+                  <span class="label">Places restantes</span>
+                  <strong>{{ event.remainingSpots }}</strong>
+                </div>
+
+                <div class="stat-pill">
+                  <span class="label">Participants</span>
+                  <strong>{{ event.registeredParticipants }}/{{ event.maxParticipants }}</strong>
+                </div>
+              </div>
+
+              <div class="event-actions">
+                <a class="soft-btn" [routerLink]="['/events', event.id]">Voir détails</a>
+              </div>
+            </div>
+          </article>
+        }
+      </section>
+    }
+  </div>
+</section>

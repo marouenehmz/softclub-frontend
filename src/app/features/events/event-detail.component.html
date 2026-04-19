@@ -1,0 +1,110 @@
+<section class="event-detail-page">
+  <div class="soft-container">
+    @if (loading) {
+      <div class="soft-panel state-card">Chargement de l'événement...</div>
+    } @else if (error) {
+      <div class="soft-panel state-card state-error">
+        <p>{{ error }}</p>
+        <a routerLink="/events" class="soft-btn">Retour</a>
+      </div>
+    } @else if (event) {
+      <div class="detail-grid">
+        <article class="soft-panel detail-card">
+          <div class="image-wrap" [style.background-image]="'url(' + event.imageUrl + ')'">
+            <!-- Overlay content -->
+            <div class="image-overlay">
+              <span class="event-type">{{ event.type }}</span>
+              <h2 class="event-title">{{ event.title }}</h2>
+            </div>
+
+            <!-- Status badge -->
+            <span class="status-badge badge-open" *ngIf="event.status === 'OPEN'"> OPEN </span>
+          </div>
+
+          <div class="detail-body">
+            <p class="kicker">{{ event.type || 'Événement' }}</p>
+            <h1>{{ event.title }}</h1>
+            <p class="description">{{ event.description }}</p>
+
+            <div class="info-grid">
+              <div class="info-box">
+                <span>Date</span>
+                <strong>{{ formatDate(event.startAt) }}</strong>
+              </div>
+
+              <div class="info-box">
+                <span>Fin</span>
+                <strong>{{ formatDate(event.endAt) }}</strong>
+              </div>
+
+              <div class="info-box">
+                <span>Prix</span>
+                <strong>{{ event.price ?? 0 }} DT</strong>
+              </div>
+
+              <div class="info-box">
+                <span>Places restantes</span>
+                <strong>{{ event.remainingSpots }}</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <aside class="soft-panel join-card">
+          <h2>Participer</h2>
+          <p class="join-subtitle">
+            Réserve ta place pour cet événement Soft Club en remplissant le formulaire.
+          </p>
+
+          @if (successMessage) {
+            <div class="message success">{{ successMessage }}</div>
+          }
+
+          @if (submitError) {
+            <div class="message error">{{ submitError }}</div>
+          }
+
+          <form [formGroup]="joinForm" (ngSubmit)="submitJoin()" class="join-form">
+            <div class="field">
+              <label for="fullName">Nom complet</label>
+              <input id="fullName" class="soft-input" formControlName="fullName" type="text" />
+              @if (joinForm.controls.fullName.touched && joinForm.controls.fullName.invalid) {
+                <small class="field-error">Nom requis.</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="phone">Téléphone</label>
+              <input id="phone" class="soft-input" formControlName="phone" type="text" />
+              @if (joinForm.controls.phone.touched && joinForm.controls.phone.invalid) {
+                <small class="field-error">Téléphone requis.</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="email">Email (optionnel)</label>
+              <input id="email" class="soft-input" formControlName="email" type="email" />
+              @if (joinForm.controls.email.touched && joinForm.controls.email.invalid) {
+                <small class="field-error">Email invalide.</small>
+              }
+            </div>
+
+            <button
+              class="soft-btn w-full"
+              type="submit"
+              [disabled]="submitting || isJoinDisabled()"
+            >
+              {{ submitting ? 'Inscription...' : 'Participer' }}
+            </button>
+          </form>
+
+          @if (isJoinDisabled()) {
+            <p class="join-disabled-note">
+              Les inscriptions sont actuellement indisponibles pour cet événement.
+            </p>
+          }
+        </aside>
+      </div>
+    }
+  </div>
+</section>
